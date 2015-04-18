@@ -9,3 +9,6 @@ public class Prototype {
 			Fenetre window = new Fenetre();
 	   }
 }
+
+
+//test
