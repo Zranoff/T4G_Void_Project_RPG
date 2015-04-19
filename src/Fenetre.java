@@ -81,6 +81,8 @@ public class Fenetre extends JFrame{
         private JTextField tf_posX;
         private JTextField tf_posY;
         
+        private Animation anim;
+        
         public Fenetre(){
                 
                 this.setTitle("Prototype");
@@ -99,6 +101,9 @@ public class Fenetre extends JFrame{
                 panBarre.setPreferredSize(new Dimension(window_length, 40));
                 panBarre.setLayout(usefulDataGrid);
                 
+                anim.setPreferredSize(new Dimension(10, 10));
+                //pan.add(anim);
+                
                 //affichage de variables
                 tf_posX = new JTextField();
                 tf_posY = new JTextField();
@@ -108,7 +113,11 @@ public class Fenetre extends JFrame{
                 jp_ecran_map.add(pan,BorderLayout.CENTER);
         		jp_content.add(panBarre,BorderLayout.NORTH);
         		jp_content.add(jp_ecran_map,BorderLayout.SOUTH);
+        		
+        		//pan.add(anim);
+        		
         		pack();
+        		
         		
         		
         		addKeyListener( keyboard );
@@ -125,6 +134,8 @@ public class Fenetre extends JFrame{
             boolean backYtop = false;
             boolean backXright = false;
             boolean backYbot = false;
+            
+            Lasers lasers = new Lasers(pan.getWidth(), pan.getHeight());
             
             //Pour cet exemple, j'utilise une boucle while
             //Vous verrez qu'elle fonctionne très bien
@@ -157,11 +168,24 @@ public class Fenetre extends JFrame{
                     if(!backYtop && keyboard.keyDown( KeyEvent.VK_UP ))
                             pan.setPosY(--y);
                     
-                    //mise a jour de l'affichage des variables
-                    tf_posX.setText(Integer.toString(x));
+                    if(!backXright && keyboard.keyDown( KeyEvent.VK_D ))
+                        	lasers.newLaser(x+50, y, Direction.RIGHT);
+	                if(!backXleft && keyboard.keyDown( KeyEvent.VK_Q ))
+	                		lasers.newLaser(x-50, y, Direction.LEFT);
+	                if(!backYbot && keyboard.keyDown( KeyEvent.VK_S ))
+	                		lasers.newLaser(x, y+50, Direction.DOWN);
+	                if(!backYtop && keyboard.keyDown( KeyEvent.VK_Z ))
+	                		lasers.newLaser(x, y-50, Direction.UP);
+	                lasers.update();
+	                
+	                //anim = new Animation(50, 50, 50);
+	                		
+                  //mise a jour de l'affichage des variables
+                    tf_posX.setText(Integer.toString(lasers.size()));
                     tf_posY.setText(Integer.toString(y));     
                     //On redessine notre Panneau
                     pan.repaint();
+            
                     
                     //Comme on dit : la pause s'impose ! Ici, 3 millièmes de secondes
                     try {
