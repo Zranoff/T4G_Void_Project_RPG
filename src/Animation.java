@@ -8,19 +8,23 @@ public class Animation extends JPanel {
 
 	private int posX = 0;
     private int posY = 0;
-    private int size = 0;
+    private int size = 10;
+    private Lasers lasers;
     
-    public Animation(int x, int y, int size){
+    public Animation(){
     	
-    	posX = x;
-    	posY = y;
-    	this.size = size;
+    }
+    
+    public void setLasers(Lasers lasers)
+    {
+    	this.lasers = lasers;
     }
     
     public void paintComponent(Graphics g){
     	
         g.setColor(Color.blue);
-        g.fillRect(this.posX, this.posY, size, size);
+    	for(int i=0; i<lasers.size();i++)
+        g.fillRect( ((Laser)this.lasers.get(i)).getPosX(), ((Laser)this.lasers.get(i)).getPosY(), size, size);
             
             
     }

@@ -101,8 +101,9 @@ public class Fenetre extends JFrame{
                 panBarre.setPreferredSize(new Dimension(window_length, 40));
                 panBarre.setLayout(usefulDataGrid);
                 
-                anim.setPreferredSize(new Dimension(10, 10));
-                //pan.add(anim);
+                anim = new Animation();
+                anim.setPreferredSize(new Dimension(window_length, window_height));
+                pan.add(anim);
                 
                 //affichage de variables
                 tf_posX = new JTextField();
@@ -178,7 +179,7 @@ public class Fenetre extends JFrame{
 	                		lasers.newLaser(x, y-50, Direction.UP);
 	                lasers.update();
 	                
-	                //anim = new Animation(50, 50, 50);
+	                anim.setLasers(lasers);
 	                		
                   //mise a jour de l'affichage des variables
                     tf_posX.setText(Integer.toString(lasers.size()));
