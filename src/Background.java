@@ -23,10 +23,9 @@ public class Background extends JPanel {
             //On dessine celui-ci afin qu'il prenne tout la surface
             g.fillRect(0, 0, this.getWidth(), this.getHeight());
             //On redéfinit une couleur pour notre rond
-            g.setColor(Color.red);
+            g.setColor(Color.blue);
             //On le dessine aux coordonnées souhaitées
-            g.fillOval(posX, posY, 50, 50);       
-                
+            g.fillRect(posX, posY, 50, 50);       
                 
         }
  
