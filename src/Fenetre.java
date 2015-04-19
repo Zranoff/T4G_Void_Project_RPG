@@ -26,6 +26,8 @@ public class Fenetre extends JFrame {
 	private KeyboardInput keyboard = new KeyboardInput();
 	private JTextField tf_posX;
 	private JTextField tf_posY;
+	private JTextField tf_vitX;
+	private JTextField tf_vitY;
 
 	public Fenetre() {
 
@@ -50,8 +52,12 @@ public class Fenetre extends JFrame {
 		// affichage de variables
 		tf_posX = new JTextField();
 		tf_posY = new JTextField();
+		tf_vitX = new JTextField();
+		tf_vitY = new JTextField();
 		panBarre.add(tf_posX);
 		panBarre.add(tf_posY);
+		panBarre.add(tf_vitX);
+		panBarre.add(tf_vitY);
 
 		// insertion des elements
 		jp_ecran_map.add(pan, BorderLayout.CENTER);
@@ -67,13 +73,6 @@ public class Fenetre extends JFrame {
 
 	private void go() {
 
-		// Les coordonnées de départ de notre rond
-		// Le booléen pour savoir si on recule ou non sur l'axe X
-		boolean backXleft = false;
-		// Le booléen pour savoir si on recule ou non sur l'axe Y
-		boolean backYtop = false;
-		boolean backXright = false;
-		boolean backYbot = false;
 		Displacement mouvement = new Displacement(pan.getPosX(), pan.getPosY());
 
 		while (true) {
@@ -88,6 +87,8 @@ public class Fenetre extends JFrame {
 			// mise a jour de l'affichage des variables
 			tf_posX.setText(Integer.toString(mouvement.getNewX()));
 			tf_posY.setText(Integer.toString(mouvement.getNewY()));
+			tf_vitX.setText(Integer.toString(mouvement.getSpeed_x()));
+			tf_vitY.setText(Integer.toString(mouvement.getSpeed_y()));
 			
 			// On redessine notre Panneau
 			pan.repaint();

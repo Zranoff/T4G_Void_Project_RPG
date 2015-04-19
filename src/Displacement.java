@@ -7,6 +7,9 @@ public class Displacement {
 	private int speed_y;
 	private int x;
 	private int y;
+	//equilibre les priorites dans les 2 sens
+	private boolean priorityX;
+	private boolean priorityY;
 	
 	public Displacement(int posX, int posY) {
 		x = posX;
@@ -16,25 +19,36 @@ public class Displacement {
 	public void input_treatment(KeyboardInput keyboard, Background pan) {
 		
 		// Si on avance, on incrémente la coordonnée
-		if (keyboard.keyDown(KeyEvent.VK_RIGHT))
-			speed_x = 10;
+		if (keyboard.keyDown(KeyEvent.VK_RIGHT) && priorityX){
+			speed_x = 3;//10
+			priorityX = true;
+		}
 		// Sinon, on décrémente
-		else if (keyboard.keyDown(KeyEvent.VK_LEFT))
-			speed_x = -10;
-		else
+		else if (keyboard.keyDown(KeyEvent.VK_LEFT)){
+			speed_x = -3;
+			priorityX = false;
+		}
+		else{
 			speed_x = 0;
+			priorityX = true;
+		}
 		// Idem pour l'axe Y
-		if (keyboard.keyDown(KeyEvent.VK_DOWN))
-			speed_y = 10;
-			
-		else if (keyboard.keyDown(KeyEvent.VK_UP))
-			speed_y = -10;
-		else
+		if (keyboard.keyDown(KeyEvent.VK_DOWN) && priorityY){
+			speed_y = 3;
+			priorityY = true;
+		}
+		else if (keyboard.keyDown(KeyEvent.VK_UP)){
+			priorityY = false;
+			speed_y = -3;
+		}
+		else{
+			priorityY = true;
 			speed_y = 0;
+		}
 		
 		if (speed_y !=0 && speed_x !=0){
-			speed_y = Integer.signum(speed_y)*7;
-			speed_x = Integer.signum(speed_x)*7;
+			speed_y = Integer.signum(speed_y)*2;//7
+			speed_x = Integer.signum(speed_x)*2;
 		}
 		
 		y = y + speed_y;
