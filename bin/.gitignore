@@ -1,9 +1,11 @@
+/Background.class
+/Fenetre.class
 /KeyboardInput$KeyState.class
 /KeyboardInput.class
-/Laser.class
-/Lasers.class
 /Prototype.class
-/Animation.class
-/Background.class
 /Direction.class
-/Fenetre.class
+/Laser.class
+/Projectiles.class
+/Direction
+/Lasers.class
+/Animation.class
