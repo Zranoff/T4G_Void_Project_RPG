@@ -14,7 +14,6 @@ import java.awt.event.KeyEvent;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
-
 public class Fenetre extends JFrame {
 
 	private Background pan;
@@ -29,8 +28,6 @@ public class Fenetre extends JFrame {
 	private JTextField tf_posY;
 	private JTextField tf_vitX;
 	private JTextField tf_vitY;
-	
-	private Animation anim;
 
 	public Fenetre() {
 
@@ -51,10 +48,6 @@ public class Fenetre extends JFrame {
 		pan.setPreferredSize(new Dimension(window_length, window_height - 50));
 		panBarre.setPreferredSize(new Dimension(window_length, 40));
 		panBarre.setLayout(usefulDataGrid);
-		
-		anim = new Animation();
-        anim.setPreferredSize(new Dimension(window_length, window_height));
-        pan.add(anim);
 
 		// affichage de variables
 		tf_posX = new JTextField();
@@ -80,14 +73,6 @@ public class Fenetre extends JFrame {
 
 	private void go() {
 
-        //Le booléen pour savoir si on recule ou non sur l'axe X
-        boolean backXleft = false;
-        //Le booléen pour savoir si on recule ou non sur l'axe Y
-        boolean backYtop = false;
-        boolean backXright = false;
-        boolean backYbot = false;
-        
-        Lasers lasers = new Lasers(pan.getWidth(), pan.getHeight());
 		Displacement mouvement = new Displacement(pan.getPosX(), pan.getPosY());
 
 		while (true) {
@@ -98,27 +83,6 @@ public class Fenetre extends JFrame {
 				break;
 
 			mouvement.input_treatment(keyboard, pan);
-			
-			backXleft = mouvement.getNewX() < 1;
-            //Si la coordonnée x est supérieure à la taille du Panneau
-            //moins la taille du rond
-            backXright = mouvement.getNewX() > pan.getWidth()-50;
-            
-            //idem pour l'axe Y
-            backYtop = mouvement.getNewY() < 1;
-            backYbot = mouvement.getNewY() > pan.getHeight()-50;
-            
-            if(!backXright && keyboard.keyDown( KeyEvent.VK_D ))
-            	lasers.newLaser(mouvement.getNewX()+50, mouvement.getNewY(), Direction.RIGHT);
-	        if(!backXleft && keyboard.keyDown( KeyEvent.VK_Q ))
-	        		lasers.newLaser(mouvement.getNewX()-50, mouvement.getNewY(), Direction.LEFT);
-	        if(!backYbot && keyboard.keyDown( KeyEvent.VK_S ))
-	        		lasers.newLaser(mouvement.getNewX(), mouvement.getNewY()+50, Direction.DOWN);
-	        if(!backYtop && keyboard.keyDown( KeyEvent.VK_Z ))
-	        		lasers.newLaser(mouvement.getNewX(), mouvement.getNewY()-50, Direction.UP);
-	        lasers.update();
-	        
-	        anim.setLasers(lasers);
 
 			// mise a jour de l'affichage des variables
 			tf_posX.setText(Integer.toString(mouvement.getNewX()));
